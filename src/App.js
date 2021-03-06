@@ -1,23 +1,23 @@
-import logo from './logo.svg';
+
 import './App.css';
 
 function App() {
+
+let url=`https://simpsons-quotes-api.herokuapp.com/quotes`
+
+fetch(url)
+.then(res=>res.json())
+.then(data=>{
+  const quoteHTML= `
+  <p>Name:${data[0].character} </p>
+  <img src="${data[0].image} alt='${data[0].character}"/>
+  <p>Name:${data[0].quote} </p>`
+  console.log(document.querySelector('.content'))
+  // document.querySelector('.content').innerHTML = quoteHTML
+ })
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
     </div>
   );
 }
