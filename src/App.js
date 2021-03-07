@@ -1,25 +1,43 @@
-
+import React, { Component } from 'react';
 import './App.css';
+import axios from 'axios';
+import DisplayCharacter from './DisplayCharacter';
 
-function App() {
 
-let url=`https://simpsons-quotes-api.herokuapp.com/quotes`
 
-fetch(url)
-.then(res=>res.json())
-.then(data=>{
-  const quoteHTML= `
-  <p>Name:${data[0].character} </p>
-  <img src="${data[0].image} alt='${data[0].character}"/>
-  <p>Name:${data[0].quote} </p>`
-  console.log(document.querySelector('.content'))
-  // document.querySelector('.content').innerHTML = quoteHTML
- })
-  return (
-    <div className="App">
 
-    </div>
-  );
+export default class App extends Component {
+  constructor(){
+    super()
+    this.state={
+      quote:''
+    }
+      this.getQuote = this.getQuote.bind(this)
+  }
+  getQuote(){
+    axios.get('https://simpsons-quotes-api.herokuapp.com/quotes')
+    .then(response =>response.data)
+    .then(data=>{
+      this.setState({
+        quote:data[0]
+      })
+    })
+  }
+
+  render() {
+    console.log(this.state.quote)
+    return (
+      <div>
+        <DisplayCharacter getQuote={this.getQuote}
+        data={this.state.quote}/>
+      </div>
+    )
+  }
 }
 
-export default App;
+
+
+
+
+
+
